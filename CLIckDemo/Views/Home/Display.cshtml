@@ -1,0 +1,51 @@
+﻿@inject  SignInManager<CLickDemo.Models.ApplicationUser> SignInManager
+@inject  UserManager<CLickDemo.Models.ApplicationUser> UserManager
+@model  List<CLickDemo.Models.College>
+@{ 
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="searchResult" content="This view displays search results" />
+    <title>display search results</title>
+</head>
+<body>
+    <div>
+        <ul style="list-style-type:none">
+            @if (SignInManager.IsSignedIn(User))
+            {
+                <li style="display:inline;float:left;margin-right:.5em">Hello, @User.Identity.Name!</li>
+                <li style="display:inline;float:left;margin-right:.5em">@Html.ActionLink("Logout", "Logout", "Account")</li>
+            }
+            else
+            {
+                <li style="display:inline;float:left;margin-right:.5em">@Html.ActionLink("Login", "Login", "Account")</li>
+                <li style="display:inline;float:left;margin-right:.5em">@Html.ActionLink("Register", "Register", "Account")</li>
+            }
+
+        </ul><br /><br />
+    </div>
+    <div>
+        <table>
+            <tr>
+                <th> College Name</th>
+                <th> College Details</th>
+            </tr>
+            @foreach (var college in Model)
+            {
+                <tr>
+                    <td>@college.Name</td>
+                    <td>@Html.ActionLink("Details", "Details", "Home", new { id = college.Id }, new { target = "_blank" })</td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div>
+        @if (SignInManager.IsSignedIn(User))
+        {
+            @Html.ActionLink("Manage Favorite Colleges", "ManageFavColleges")
+        }
+    </div>
+</body>
+</html>

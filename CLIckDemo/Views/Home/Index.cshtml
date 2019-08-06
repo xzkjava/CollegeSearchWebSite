@@ -1,0 +1,41 @@
+﻿@inject  SignInManager<CLickDemo.Models.ApplicationUser> SignInManager
+@inject  UserManager<CLickDemo.Models.ApplicationUser> UserManager
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="demo" content="learning to make link work" />
+    <title> link demo</title>
+</head>
+<body>
+    <div>
+        <ul style="list-style-type:none">
+            @if (SignInManager.IsSignedIn(User))
+            {
+                <li style="display:inline;float:left;margin-right:.5em">Hello, @User.Identity.Name!</li>
+                <li style="display:inline;float:left;margin-right:.5em">@Html.ActionLink("Logout", "Logout", "Account")</li>
+            }
+            else
+            {
+                <li style="display:inline;float:left;margin-right:.5em">@Html.ActionLink("Login", "Login", "Account")</li>
+                <li style="display:inline;float:left;margin-right:.5em">@Html.ActionLink("Register", "Register", "Account")</li>
+            }
+
+        </ul><br/><br/>
+    </div>
+    <div>
+        <h5 style="font-size: 2em;font-weight: 900">Search for Colleges</h5>
+        <p>Click Here <a href=@Url.Action("Form", "Home")>Link</a></p>
+    </div>
+    <div>
+        <p>
+        @if (SignInManager.IsSignedIn(User))
+        {
+            @Html.ActionLink("Manage Favorite Colleges", "ManageFavCollege", "Home")
+        }
+        </p>
+    </div>
+</body>
+</html>

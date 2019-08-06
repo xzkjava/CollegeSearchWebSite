@@ -1,0 +1,30 @@
+﻿@model IEnumerable<CLickDemo.Models.FavCollege>
+@{ 
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="FavCollegeList" content="display saved favorite colleges" />
+    <title>Manage Favorite Colleges</title>
+</head>
+<body>
+    <p>@Html.ActionLink("Logout", "Logout", "Account")</p>
+    <h4>Favorite Colleges</h4>
+    <table>
+        <tr>
+            <th style="text-align:center">College Name</th>
+            <th style="text-align:center">Details</th>
+        </tr>
+        @foreach(var college in Model)
+        {
+            <tr>
+                <td>college.Name</td>
+                <td>@Html.ActionLink("Details","Details", "Home", new { id = college.Id })</td>
+            </tr>
+        }
+    </table>
+</body>
+</html>
+
+

@@ -1,0 +1,44 @@
+﻿@inject  SignInManager<CLickDemo.Models.ApplicationUser> SignInManager
+@inject  UserManager<CLickDemo.Models.ApplicationUser> UserManager
+@{ 
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="searchForm" content="search for a college" />
+    <title>Search Form</title>
+</head>
+<body>
+    <div>
+        <ul style="list-style-type:none">
+            @if (SignInManager.IsSignedIn(User))
+            {
+                <li style="display:inline;float:left;margin-right:.5em">Hello, @User.Identity.Name!</li>
+                <li style="display:inline;float:left;margin-right:.5em">@Html.ActionLink("Logout", "Logout", "Account")</li>
+            }
+            else
+            {
+                <li style="display:inline;float:left;margin-right:.5em">@Html.ActionLink("Login", "Login", "Account", new { returnUrl = Url.Action("Index", "Home") })</li>
+                <li style="display:inline;float:left;margin-right:.5em">@Html.ActionLink("Register", "Register", "Account")</li>
+            }
+
+        </ul><br /><br />
+    </div>
+    <div>
+        <form action="/Home/SearchAsync" method="post">
+            University Name:<input type="text" name="Name" id="Name" /><br />
+            City:<input type="text" name="City" id="City" /><br />
+            State:<input type="text" name="State" id="City" /><br /><br />
+            <input type="submit" value="submit" />
+        </form>
+    </div>
+    <div>
+        @if (SignInManager.IsSignedIn(User))
+        {
+            @Html.ActionLink("Manage Favorite Colleges", "ManageFavColleges", "Home")
+        }
+    </div>
+
+</body>
+</html>

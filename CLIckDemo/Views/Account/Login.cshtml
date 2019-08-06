@@ -1,0 +1,43 @@
+﻿@inject  SignInManager<CLickDemo.Models.ApplicationUser> SignInManager
+@inject  UserManager<CLickDemo.Models.ApplicationUser> UserManager
+@model  CLickDemo.Models.Login
+@{ 
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="LoginPage" content="login form" />
+    <title>Log In</title>
+</head>
+<body>
+    <div>
+        <ul style="list-style-type:none">
+            @if (SignInManager.IsSignedIn(User))
+            {
+                <li style="display:inline;float:left;margin-right:.5em">Hello, @User.Identity.Name!</li>
+                <li style="display:inline;float:left;margin-right:.5em">@Html.ActionLink("Logout", "Logout", "Account")</li>
+            }
+            else
+            {
+                <li style="display:inline;float:left;margin-right:.5em">@Html.ActionLink("Login", "Login", "Account")</li>
+                <li style="display:inline;float:left;margin-right:.5em">@Html.ActionLink("Register", "Register", "Account")</li>
+            }
+
+        </ul><br /><br />
+    </div>
+    <div>
+        <h4>Log In</h4>
+    </div>
+    <div>
+        @Html.ValidationSummary()
+        <form action="~/Account/Login" method="post">
+            <input type="hidden" name="returnUrl" value="@ViewBag.returnUrl" />
+            Email:<input type="text" name="Email" id="Email" /><br />
+            Password:<input type="password" name="Password" id="Password" /><br /><br />
+            @Html.AntiForgeryToken() <input type="submit" value="Log in" />
+        </form>
+    </div>
+
+</body>
+</html>

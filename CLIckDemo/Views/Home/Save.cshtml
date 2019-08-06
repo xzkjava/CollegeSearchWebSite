@@ -1,0 +1,91 @@
+﻿@inject  SignInManager<CLickDemo.Models.ApplicationUser> SignInManager
+@inject  UserManager<CLickDemo.Models.ApplicationUser> UserManager
+@model  CLickDemo.Models.College
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="SavePages" content="list all favorite colleges saved" />
+    <title>Favorite Colleges</title>
+</head>
+<body>
+    <div>
+        <ul style="list-style-type:none">
+            @if (SignInManager.IsSignedIn(User))
+            {
+                <li style="display:inline;float:left;margin-right:.5em">Hello, @User.Identity.Name!</li>
+                <li style="display:inline;float:left;margin-right:.5em">@Html.ActionLink("Logout", "Logout", "Account")</li>
+            }
+            else
+            {
+                <li style="display:inline;float:left;margin-right:.5em">@Html.ActionLink("Login", "Login", "Account", new { returnUrl = Url.Action("Details", "Home", new { id = Model.Id }) })</li>
+                <li style="display:inline;float:left;margin-right:.5em">@Html.ActionLink("Register", "Register", "Account")</li>
+            }
+
+        </ul><br /><br />
+    </div>
+    <div>
+        <h4>College Details</h4>
+        <p>College Name: @Model.Name</p>
+        <p>Address: @Model.City, @Model.State @Model.ZipCode</p>
+        <p>Website: @Model.Website</p>
+        <p>
+            Admission Rate:
+            @if (Model.AdmissionRate == null)
+            {
+                @string.Format("{0}", "N/A")
+            }
+            else
+            {
+                @string.Format("{0}%", @Model.AdmissionRate * 100)
+
+            }
+        </p>
+        <p>
+            In-State Tuition:
+            @if (Model.Tuition_In_State == null)
+            {
+                @string.Format("{0}", "N/A")
+            }
+            else
+            {
+                @string.Format("{0:C}", @Model.Tuition_In_State)
+            }
+        </p>
+        <p>
+            Out-State Tuition:
+            @if (Model.Tuition_Out_State == null)
+            {
+                @string.Format("{0}", "N/A")
+            }
+            else
+            {
+                @string.Format("{0:C}", @Model.Tuition_Out_State)
+
+            }
+        </p>
+        <p>
+            Average SAT:
+            @if (Model.AverageSAT == null)
+            {
+                @string.Format("{0}", "N/A")
+            }
+            else
+            {
+                @string.Format("{0}", Model.AverageSAT)
+            }
+        </p>
+    </div>
+    <div>
+        <h5>Are you sure you want to save this college?</h5>
+        <form action="~/Home/SaveConfirm" method="post">
+            <input type="hidden" name="id" value="@Model.Id" />
+            <input type="submit" value="Save To Favorites" />
+        </form>
+        @Html.ActionLink("Cancel", "ManageFavColleges", "Home")
+    </div>
+
+</body>
+</html>

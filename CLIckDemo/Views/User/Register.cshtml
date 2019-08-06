@@ -1,0 +1,31 @@
+﻿@model CLickDemo.Models.Register
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Register";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="registerPage" content="register form" />
+    <title> Registration Page</title>
+</head>
+<body>
+    <h2>@ViewData["Title"].</h2>
+    <form asp-controller="User" asp-action="Register" method="post" class="form-horizontal" role="form">
+        <h4>Create a new account</h4>
+        <hr />
+        <div class="text-danger"></div>
+        <div class="form-group">
+            <div class="col-md-10"></div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-10"></div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">@Html.ActionLink("Register", "Register", "Account")</div>
+        </div>
+
+    </form>
+</body>
+</html>

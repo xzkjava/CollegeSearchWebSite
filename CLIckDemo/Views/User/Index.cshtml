@@ -1,0 +1,21 @@
+﻿@model  IEnumerable<CLickDemo.Models.College>
+@{ 
+    Layout = null;
+}
+@{ 
+    ViewBag.Title = "Favorite Colleges";
+}
+<!DOCTYPe html>
+<html>
+<head>
+    <meta name="UserAccountPage" content="display user account page" />
+    <title>User Account</title>
+</head>
+<body>
+    <ul>
+        <li>@Html.ActionLink("Search", "Form", "Home")</li>
+        <li>@Html.ActionLink("Logout", "Logout", "User")</li>
+    </ul>
+    <h4>ViewBag.Title</h4>
+</body>
+</html>
